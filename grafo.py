@@ -25,11 +25,25 @@ class Grafo:
     def __repr__(self):
         tipo = "Dirigido" if self.dirigido else "No dirigido"
         return f"<Grafo {tipo}: {len(self.nodos)} nodos, {len(self.aristas)} aristas>"
+    
+    def lista_incidencia(self):
+        incidencia = {nodo: [] for nodo in self.nodos}  
+        for arista in self.aristas:
+            incidencia[arista.origen].append((arista.destino, arista.attrs))
+            if not self.dirigido:
+                incidencia[arista.destino].append((arista.origen, arista.attrs))
+
+        return incidencia
 
 
-k2 = Grafo(dirigido=False)
+k2 = Grafo(dirigido=True)
 k2.agregar_nodo("M1")
 k2.agregar_nodo("M2")
-k2.agregar_arista("M1","M2",{"Peso":5})
+k2.agregar_arista("M1", "M2", {"Peso": 5})
+k2.agregar_nodo("M3")
+k2.agregar_arista("M2","M1",{"Peso":5})
 print(k2)
 print(k2.aristas)
+
+print(k2.lista_incidencia())
+

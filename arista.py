@@ -1,6 +1,6 @@
 class Arista:
     def __init__(self, origen, destino, attrs=None, dirigida=False):
-        self.origen = str(origen)   # almacenamos ids
+        self.origen = str(origen)
         self.destino = str(destino)
         self.attrs = dict(attrs) if attrs else {}
         self.dirigida = dirigida
