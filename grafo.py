@@ -26,13 +26,23 @@ class Grafo:
         tipo = "Dirigido" if self.dirigido else "No dirigido"
         return f"<Grafo {tipo}: {len(self.nodos)} nodos, {len(self.aristas)} aristas>"
     
-    def lista_incidencia(self):
-        incidencia = {nodo: [] for nodo in self.nodos}  
+    def lista_adyacencia(self):
+        adyacencia = {nodo: [] for nodo in self.nodos}  
         for arista in self.aristas:
-            incidencia[arista.origen].append((arista.destino, arista.attrs))
+            adyacencia[arista.origen].append((arista.destino, arista.attrs))
             if not self.dirigido:
-                incidencia[arista.destino].append((arista.origen, arista.attrs))
+                adyacencia[arista.destino].append((arista.origen, arista.attrs))
 
+        return adyacencia
+
+    def lista_incidencia(self):
+        incidencia = {nodo: [] for nodo in self.nodos}
+        for arista in self.aristas:
+            incidencia[arista.origen].append(arista)
+            if not self.dirigido:
+                incidencia[arista.destino].append(arista)
+            else:
+                incidencia[arista.destino].append(arista)  
         return incidencia
 
 
@@ -45,5 +55,9 @@ k2.agregar_arista("M2","M1",{"Peso":5})
 print(k2)
 print(k2.aristas)
 
+print("\nLista de adyacencia:")
+print(k2.lista_adyacencia())
+
+print("\nLista de incidencia:")
 print(k2.lista_incidencia())
 
